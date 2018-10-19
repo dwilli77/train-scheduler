@@ -1,0 +1,23 @@
+
+.jumbotron{
+    text-align:center;
+    background-image: linear-gradient(to bottom right, #f00,#cc0);
+    padding-bottom: 40px;
+}
+
+h1{
+    font-size: 60px;
+}
+
+form{
+    border: 1px solid #036;
+    padding: 10px;
+}
+
+button{
+    background: linear-gradient(to bottom right, #f00,#cc0);
+}
+
+button:hover{
+    text-decoration:underline !important;
+}
