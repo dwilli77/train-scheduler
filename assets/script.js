@@ -10,6 +10,8 @@ firebase.initializeApp(config);
 
 let database = firebase.database();
 
+let numTrain = 0;
+
 //shows current time in the jumbotron
 function currentTime(){
     let now = moment().format('MMMM Do YYYY, hh:mm:ss a');
@@ -42,7 +44,7 @@ $('#add-train').on('click',function(event){
             trainName: trainName,
             destination: destination,
             firstTime: firstTime,
-            frequency: frequency
+            frequency: frequency,
         };
         database.ref().push(newTrain);
 
@@ -60,6 +62,7 @@ database.ref().on('child_added', function (childSnapshot){
     let destination = childSnapshot.val().destination;
     let firstTime = childSnapshot.val().firstTime;
     let frequency = parseInt(childSnapshot.val().frequency);
+    let key = childSnapshot.key;
 
     let firstTimeConverted = moment(firstTime, "X").subtract(1,'years');
 
@@ -72,6 +75,7 @@ database.ref().on('child_added', function (childSnapshot){
     let nextArrival = moment().add(minutesAway, 'minutes');
 
     let newRow = $('<tr>').append(
+        $('<td class="text-align-center"><button data-key="'+key+'" class="btn remove-button">Remove</button></td>'),
         $('<td>').text(trainName),
         $('<td>').text(destination),
         $('<td>').text(frequency),
@@ -82,3 +86,8 @@ database.ref().on('child_added', function (childSnapshot){
     $('#train-table').append(newRow);
 });
 
+$(document).on('click', '.remove-button', function(){
+    let removedKey = $(this).data('key');
+    database.ref().child(removedKey).remove();
+    window.location.reload();
+})

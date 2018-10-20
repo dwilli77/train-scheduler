@@ -17,6 +17,7 @@ form{
 
 button{
     background: linear-gradient(to bottom right, #f00,#cc0);
+    color:#fff;
 }
 
 button:hover{
