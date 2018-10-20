@@ -10,13 +10,15 @@ firebase.initializeApp(config);
 
 let database = firebase.database();
 
+//shows current time in the jumbotron
 function currentTime(){
     let now = moment().format('MMMM Do YYYY, hh:mm:ss a');
     $('#current-time').text(now);
 }
-
+//updates time every second
 setInterval(currentTime,1000);
 
+//click event on the submit button - pushes entried to firebase
 $('#add-train').on('click',function(event){
     event.preventDefault();
     
@@ -26,15 +28,16 @@ $('#add-train').on('click',function(event){
     console.log(firstTime);
     let frequency = parseInt($('#freq-input').val().trim());
 
+    //makes sure that the user doesn't leave any fields blank
     if(!trainName){
         alert("Name your train!");
     }else if(!destination){
         alert("Enter a destination!");
     }else if(firstTime === 'Invalid date'){
         alert('Set a start time!');
-    }else if(!frequency){
+    }else if(!frequency || frequency < 1){
         alert('Set a frequency!');
-    }else{
+    }else{ //every field should be full at this point
         let newTrain = {
             trainName: trainName,
             destination: destination,
