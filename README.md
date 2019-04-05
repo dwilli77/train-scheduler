@@ -13,3 +13,4 @@ Fill out the form to add a train to the scheduler.
 
 The application will show you the train's schedule, and when the next train should arrive based upon your current time.
 
+![screenshot](./screenshot.PNG "Train Scheduler")
